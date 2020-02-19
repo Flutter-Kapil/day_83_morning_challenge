@@ -14,6 +14,13 @@ class Node {
   Node(this.val);
 }
 
+void printNodeTillEnd(Node node){
+  while(node!=null){
+    print(node.val);
+    node=node.next;
+  }
+}
+
 main() {
   var nodeA = Node(3);
   var nodeB = Node(7);
@@ -29,28 +36,25 @@ main() {
 
   nodeE.next = nodeF;
   nodeF.next = nodeC;
-  print(nodeD.next);
 
+
+//  printNodeTillEnd(nodeE);
+//  printNodeTillEnd(nodeA);
   print(intersectingNode(nodeA, nodeE));
 }
 
 int intersectingNode(Node a, Node b) {
-  Node tempA = a;
-  while (tempA.next != null) {
-    print('1st while a loop');
-    Node tempB = b;
-    while (tempB.next != null) {
-      print('tempB node value is ${tempB.val}');
-      print('tempA node value is ${tempA.val}');
-      print('2nd while b loop');
+  var tempA = a;
+  while (tempA != null) {
+    var tempB = b;
+    while (tempB!= null) {
       if (tempA.val == tempB.val) {
-        print('1st if');
         return tempA.val;
       }
-      print('else');
-      tempB = b.next;
+      tempB = tempB.next;
     }
-    tempA = a.next;
+    tempA = tempA.next;
+
   }
   return null;
 }
