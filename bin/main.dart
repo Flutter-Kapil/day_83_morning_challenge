@@ -89,19 +89,8 @@ int intersectingNode2(Node a, Node b) {
   // ignore: omit_local_variable_types
   int difference = (nodeAsize - nodeBsize).abs();
   // ignore: omit_local_variable_types
-  bool traversingBothNodes = false;
-  // ignore: omit_local_variable_types
-  int currentBigNode = 0;
-  while (bigNode != null && !traversingBothNodes) {
-    if (currentBigNode == difference) {
-      traversingBothNodes = true;
-    } else {
-      bigNode = bigNode.next;
-      currentBigNode++;
-    }
-  }
-
-  while (bigNode != null && traversingBothNodes) {
+  bigNode=skipNnodes(difference, bigNode);
+  while (bigNode != null) {
     if (bigNode.val == smallNode.val) {
       return bigNode.val;
     }
@@ -109,4 +98,12 @@ int intersectingNode2(Node a, Node b) {
     smallNode = smallNode.next;
   }
   return null;
+}
+
+Node skipNnodes(int n, Node node){
+  // ignore: omit_local_variable_types
+  for(int i=0;i<n;i++){
+    node=node.next;
+  }
+  return node;
 }
