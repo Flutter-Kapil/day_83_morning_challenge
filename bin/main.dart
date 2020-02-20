@@ -14,17 +14,18 @@ class Node {
   Node(this.val);
 }
 
-void printNodeTillEnd(Node node){
-  while(node!=null){
+void printNodeTillEnd(Node node) {
+  while (node != null) {
     print(node.val);
-    node=node.next;
+    node = node.next;
   }
 }
-getNodeSize(Node node){
-  var count =0;
-  while(node!=null){
+
+getNodeSize(Node node) {
+  var count = 0;
+  while (node != null) {
     count++;
-    node=node.next;
+    node = node.next;
   }
   return count;
 }
@@ -45,28 +46,24 @@ main() {
   nodeE.next = nodeF;
   nodeF.next = nodeC;
 
-
-
   print(intersectingNode(nodeB, nodeE));
   print(intersectingNode2(nodeB, nodeE));
-
 }
 
 int intersectingNode(Node a, Node b) {
   //check size of both nodes and tempA will be longer node
   var tempA;
-  (getNodeSize(a)>getNodeSize(b))?tempA=a:tempA=b;
+  (getNodeSize(a) > getNodeSize(b)) ? tempA = a : tempA = b;
   while (tempA != null) {
     var tempB;
-    (getNodeSize(a)>getNodeSize(b))?tempB=b:tempB=a;
-    while (tempB!= null) {
+    (getNodeSize(a) > getNodeSize(b)) ? tempB = b : tempB = a;
+    while (tempB != null) {
       if (tempA.val == tempB.val) {
         return tempA.val;
       }
       tempB = tempB.next;
     }
     tempA = tempA.next;
-
   }
   return null;
 }
@@ -74,44 +71,42 @@ int intersectingNode(Node a, Node b) {
 int intersectingNode2(Node a, Node b) {
   //get size of both nodes and trim the bigger node so that both nodes are of equal size
   //to easily identify the bigger node, store it in map
-  int nodeAsize= getNodeSize(a);
-  int nodeBsize=getNodeSize(b);
-  Node bigNode ;
+  int nodeAsize = getNodeSize(a);
+  int nodeBsize = getNodeSize(b);
+  Node bigNode;
   Node smallNode;
-  if(nodeAsize>nodeBsize){
-    bigNode=a;
-    smallNode=b;
-  }else{
-    bigNode=b;
-    smallNode=a;
+  if (nodeAsize > nodeBsize) {
+    bigNode = a;
+    smallNode = b;
+  } else {
+    bigNode = b;
+    smallNode = a;
   }
   //now we will traverse through both the nodes till we find common element,
   //but for we will start with shorter node only when we reach  a particular node
   //in longer node, if the difference in size is 3, then we will start traversing through shorter node only
   //we reach 3rd node of longer node
   // ignore: omit_local_variable_types
-  int difference = (nodeAsize-nodeBsize).abs();
+  int difference = (nodeAsize - nodeBsize).abs();
   // ignore: omit_local_variable_types
-  bool traversingBothNodes=false;
+  bool traversingBothNodes = false;
   // ignore: omit_local_variable_types
-  int currentBigNode=0;
-  while(bigNode!=null){
-    if(currentBigNode==difference){
-      traversingBothNodes=true;
-    }
-
-    if(traversingBothNodes){
-      if (bigNode.val == smallNode.val) {
-        return bigNode.val;
-      }
-      bigNode=bigNode.next;
-      smallNode=smallNode.next;
-    }else{
-      bigNode=bigNode.next;
+  int currentBigNode = 0;
+  while (bigNode != null && !traversingBothNodes) {
+    if (currentBigNode == difference) {
+      traversingBothNodes = true;
+    } else {
+      bigNode = bigNode.next;
       currentBigNode++;
     }
+  }
 
-
+  while (bigNode != null && traversingBothNodes) {
+    if (bigNode.val == smallNode.val) {
+      return bigNode.val;
+    }
+    bigNode = bigNode.next;
+    smallNode = smallNode.next;
   }
   return null;
 }
