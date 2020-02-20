@@ -74,11 +74,11 @@ int intersectingNode(Node a, Node b) {
 int intersectingNode2(Node a, Node b) {
   //get size of both nodes and trim the bigger node so that both nodes are of equal size
   //to easily identify the bigger node, store it in map
-  int sizeA= getNodeSize(a);
-  int sizeB=getNodeSize(b);
+  int nodeAsize= getNodeSize(a);
+  int nodeBsize=getNodeSize(b);
   Node bigNode ;
   Node smallNode;
-  if(sizeA>sizeB){
+  if(nodeAsize>nodeBsize){
     bigNode=a;
     smallNode=b;
   }else{
@@ -90,7 +90,7 @@ int intersectingNode2(Node a, Node b) {
   //in longer node, if the difference in size is 3, then we will start traversing through shorter node only
   //we reach 3rd node of longer node
   // ignore: omit_local_variable_types
-  int difference = (sizeA-sizeB).abs();
+  int difference = (nodeAsize-nodeBsize).abs();
   // ignore: omit_local_variable_types
   bool traversingBothNodes=false;
   // ignore: omit_local_variable_types
