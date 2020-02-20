@@ -74,32 +74,33 @@ int intersectingNode(Node a, Node b) {
 int intersectingNode2(Node a, Node b) {
   //get size of both nodes and trim the bigger node so that both nodes are of equal size
   //to easily identify the bigger node, store it in map
-  var size={};
-  var sizeA= getNodeSize(a);
-  var sizeB=getNodeSize(b);
+  int sizeA= getNodeSize(a);
+  int sizeB=getNodeSize(b);
+  Node bigNode ;
+  Node smallNode;
   if(sizeA>sizeB){
-    size['big']=a;
-    size['small']=b;
+    bigNode=a;
+    smallNode=b;
   }else{
-    size['big']=b;
-    size['small']=a;
+    bigNode=b;
+    smallNode=a;
   }
   //now we will traverse through both the nodes till we find common element,
   //but for we will start with shorter node only when we reach  a particular node
   //in longer node, if the difference in size is 3, then we will start traversing through shorter node only
   //we reach 3rd node of longer node
-  var bigNode = size['big'];
-  var smallNode= size['small'];
-  var difference = (sizeA-sizeB).abs();
-  print(difference);
-  var traverseShortNode=false;
-  var count=0;
-  for(var i=0;bigNode!=null;i++){
-
-    if(count==difference){
-      traverseShortNode=true;
+  // ignore: omit_local_variable_types
+  int difference = (sizeA-sizeB).abs();
+  // ignore: omit_local_variable_types
+  bool traversingBothNodes=false;
+  // ignore: omit_local_variable_types
+  int currentBigNode=0;
+  while(bigNode!=null){
+    if(currentBigNode==difference){
+      traversingBothNodes=true;
     }
-    if(traverseShortNode){
+
+    if(traversingBothNodes){
       if (bigNode.val == smallNode.val) {
         return bigNode.val;
       }
@@ -107,7 +108,7 @@ int intersectingNode2(Node a, Node b) {
       smallNode=smallNode.next;
     }else{
       bigNode=bigNode.next;
-      count++;
+      currentBigNode++;
     }
 
 
